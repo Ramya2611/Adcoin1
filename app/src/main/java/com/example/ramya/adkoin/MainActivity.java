@@ -1,6 +1,7 @@
 package com.example.ramya.adkoin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_CODE=999;
 
-    Button mobile,email;
+   // SharedPreferences sp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,48 +36,35 @@ public class MainActivity extends AppCompatActivity {
 
         printKeyHash();
 
-        mobile=(Button)findViewById(R.id.mobile);
-        email=(Button)findViewById(R.id.email);
 
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startLoginPage(LoginType.EMAIL);
-            }
-        });
+        //sp = getSharedPreferences("login",MODE_PRIVATE);
 
-        mobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startLoginPage(LoginType.PHONE);
-            }
-        });
+        startLoginPage(LoginType.PHONE);
+        //sp.edit().putBoolean("logged",true).apply();
+
+
+        /*if(sp.getBoolean("logged",false)){
+            goTosuccess();
+        }*/
     }
+
+    /*private void goTosuccess() {
+        Intent i = new Intent(this,Success.class);
+        startActivity(i);
+    }*/
 
     private void startLoginPage(LoginType loginType) {
 
-        if (loginType==LoginType.EMAIL){
 
-            Intent intent = new Intent(this, AccountKitActivity.class);
-            AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder=
-                    new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.EMAIL,
-                            AccountKitActivity.ResponseType.TOKEN);
-
-            intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,configurationBuilder.build());
-
-            startActivityForResult(intent,REQUEST_CODE);
-        }
-        else if (loginType==LoginType.PHONE){
             Intent intent = new Intent(this, AccountKitActivity.class);
             AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder=
                     new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
-                            AccountKitActivity.ResponseType.TOKEN);
+                            AccountKitActivity.ResponseType.CODE);
 
             intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,configurationBuilder.build());
 
             startActivityForResult(intent,REQUEST_CODE);
 
-        }
 
 
 

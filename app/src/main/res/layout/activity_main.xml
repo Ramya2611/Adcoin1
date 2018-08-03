@@ -8,27 +8,5 @@
     android:orientation="vertical"
     tools:context="com.example.ramya.adkoin.MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-        <Button
-            android:id="@+id/mobile"
-            android:text="Mobile Number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/email"
-            android:text="Email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-
 
 </RelativeLayout>
