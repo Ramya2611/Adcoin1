@@ -2,6 +2,7 @@ package com.example.ramya.adkoin;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+
 
 public class Success extends AppCompatActivity {
 
@@ -18,6 +22,9 @@ public class Success extends AppCompatActivity {
     private Cashout cashfragment;
     private Balance balfragment;
     private Banners banfragment;
+    private Bottomsheet bottomsheet;
+
+    boolean mpressedonce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +37,11 @@ public class Success extends AppCompatActivity {
         cashfragment = new Cashout();
         balfragment = new Balance();
         banfragment = new Banners();
+        bottomsheet = new Bottomsheet();
 
         setFragment(cashfragment);
+
+        BottomNavigationhelper.removeShiftMode(mMainNav);
 
 
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,23 +50,22 @@ public class Success extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.nav_cash:
-                        mMainNav.setItemBackgroundResource(R.color.basic_blue);
                         setFragment(cashfragment);
                         return true;
 
                     case R.id.nav_bal:
-                        mMainNav.setItemBackgroundResource(R.color.basic_blue);
                         setFragment(balfragment);
                         return true;
 
                     case R.id.nav_ban:
-                        mMainNav.setItemBackgroundResource(R.color.basic_blue);
                         setFragment(banfragment);
                         return true;
 
                     case R.id.nav_more:
-                        mMainNav.setItemBackgroundResource(R.color.basic_blue);
-                        setFragment(cashfragment);
+                        setFragment(bottomsheet);
+                        //Toast.makeText(getApplicationContext(),"More Clicked",Toast.LENGTH_LONG).show();
+                       // AccountKit.logOut();
+                        //finish();
                         return true;
 
 
@@ -77,5 +86,23 @@ public class Success extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (mpressedonce) {
+            super.onBackPressed();
+            finishAffinity();
+
+        }
+        this.mpressedonce = true;
+        Toast.makeText(this,"Press Back again to exit",Toast.LENGTH_LONG).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mpressedonce = false;
+            }
+        }, 2000);
+    }
 
 }

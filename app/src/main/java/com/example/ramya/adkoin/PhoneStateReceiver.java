@@ -25,6 +25,8 @@ public class PhoneStateReceiver extends BroadcastReceiver {
 
             Log.d("Ringing", "Phone is ringing");
 
+
+
             final Intent i = new Intent(context, CustomPhoneStateListener.class);
             i.putExtras(intent);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -37,7 +39,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
                 {
                     context.startActivity(i);
                 }
-            },3000);
+            },1500);
 
         }
     }
