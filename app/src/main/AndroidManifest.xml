@@ -20,7 +20,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".CustomPhoneStateListener">
+        <activity android:name=".CustomPhoneStateListener"  android:theme="@style/Theme.AppCompat.Transparent.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
